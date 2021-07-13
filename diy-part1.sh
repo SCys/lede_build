@@ -15,9 +15,5 @@
 echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 
-git clone https://github.com/jerrykuku/lua-maxminddb package/lean/lua-maxminddb
-git clone https://github.com/jerrykuku/luci-app-vssr package/lean/luci-app-vssr
-
-
 # Add a feed source
 #sed -i '$a src-git lienol https://github.com/Lienol/openwrt-package' feeds.conf.default
