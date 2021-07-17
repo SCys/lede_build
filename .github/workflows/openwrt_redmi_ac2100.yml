@@ -1,5 +1,5 @@
 
-name: Build Redmi AX6 OpenWrt
+name: Build Redmi AC2100 OpenWrt
 
 on:
   repository_dispatch:
