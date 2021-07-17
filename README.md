@@ -21,3 +21,4 @@
 
 - [jingleijack/OpenWrt-AX6](https://github.com/jingleijack/OpenWrt-AX6)
 - [P3TERX/Actions-OpenWrt](https://github.com/P3TERX/Actions-OpenWrt)
+- [StarryLight420/OpenWrt_Action_For_RM2100](https://github.com/StarryLight420/OpenWrt_Action_For_RM2100/)
