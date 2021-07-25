@@ -1,6 +1,8 @@
 name: Build Redmi AX6 OpenWrt
 
 on:
+  schedule:
+    - cron: 0 */18 * * *
   repository_dispatch:
   workflow_dispatch:
     inputs:
@@ -8,8 +10,6 @@ on:
         description: "SSH connection to Actions"
         required: false
         default: "false"
-  schedule:
-    - cron: 0 0 * * *
 
 env:
   DEVICE_NAME: redmi_ax6
