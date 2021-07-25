@@ -2,8 +2,8 @@
 
 ## 硬件
 
-- [Redmi AX6](https://openwrt.org/inbox/toh/xiaomi/xiaomi_redmi_ax6_ax3000)
-- [Redmi AC2100](https://openwrt.org/toh/xiaomi/xiaomi_redmi_router_ac2100)
+- [Redmi AX6](https://openwrt.org/inbox/toh/xiaomi/xiaomi_redmi_ax6_ax3000) [![Build Redmi AX6 OpenWrt](https://github.com/SCys/OpenWrt-Build/actions/workflows/openwrt_redmi_ax6.yml/badge.svg)](https://github.com/SCys/OpenWrt-Build/actions/workflows/openwrt_redmi_ax6.yml)
+- [Redmi AC2100](https://openwrt.org/toh/xiaomi/xiaomi_redmi_router_ac2100) 
 
 ## 集成插件
 
