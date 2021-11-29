@@ -10,7 +10,7 @@
 # Description: OpenWrt DIY script part 1 (Before Update feeds)
 #
 
-echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
+# echo 'src-git helloworld https://github.com/fw876/helloworld' >> feeds.conf.default
 
 # Other customizations
 mkdir package/custom
@@ -24,4 +24,4 @@ git clone https://github.com/jerrykuku/luci-app-argon-config package/custom/luci
 ### Include driver and luci-app-mtwifi
 # git clone https://github.com/MeIsReallyBa/Redmi2100-WIFI-ProprietaryDriver-linux5.4 package/custom/mtkdriver
 
-git clone https://github.com/zzsj0928/luci-app-pushbot.git package/luci-app-pushbot
+# git clone https://github.com/zzsj0928/luci-app-pushbot.git package/luci-app-pushbot
