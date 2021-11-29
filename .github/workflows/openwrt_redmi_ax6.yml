@@ -13,7 +13,8 @@ on:
 
 env:
   DEVICE_NAME: redmi_ax6
-  REPO_URL: https://github.com/coolsnowwolf/lede
+  REPO_URL: https://github.com/Boos4721/openwrt
+  #REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: redmi_ax6.config
