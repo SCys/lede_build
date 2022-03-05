@@ -16,10 +16,6 @@
 # 修正连接数（by ベ七秒鱼ベ）
 sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package/base-files/files/etc/sysctl.conf
 
-
-# Modify theme
-sed -i 's/luci-theme-netgear/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
-
 # Modify NTP Server
 sed -i "s/0.openwrt.pool.ntp.org/ntp.aliyun.com/g" package/base-files/files/bin/config_generate
 sed -i "s/1.openwrt.pool.ntp.org/cn.ntp.org.cn/g" package/base-files/files/bin/config_generate
