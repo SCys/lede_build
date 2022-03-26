@@ -72,9 +72,9 @@ jobs:
         run: |
           cd openwrt
           make defconfig
-          make -j4 download V=s 2>&1 >/dev/null
+          make -j4 download -s V=s 2>&1 >/dev/null
           echo -e "$(nproc) thread compile"
-          make -j$(nproc) V=s
+          make -j$(nproc) -s V=s
           echo "::set-output name=status::success"
           echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
 
