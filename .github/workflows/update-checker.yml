@@ -12,13 +12,13 @@
 name: Update Checker
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
+  REPO_URL: https://github.com/Boos4721/openwrt
   REPO_BRANCH: master
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: 0 */18 * * *
+    - cron: 0 3 * * *
 
 jobs:
   check:
