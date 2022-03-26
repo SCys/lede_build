@@ -72,7 +72,7 @@ jobs:
         run: |
           cd openwrt
           make defconfig
-          make -j4 download V=s
+          make -j4 download V=s 2>&1 >/dev/null
           echo -e "$(nproc) thread compile"
           make -j$(nproc) V=s
           echo "::set-output name=status::success"
