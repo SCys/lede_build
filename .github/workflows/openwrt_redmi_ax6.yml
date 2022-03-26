@@ -27,7 +27,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@main
+        uses: actions/checkout@v2
+
+      - name: Set cache
+        uses: klever1988/cachewrtbuild@main
+        with:
+          ccache: 'true'
 
       - name: Initialization environment
         env:
