@@ -29,15 +29,16 @@ jobs:
         - CONFIG_FILE: redmi_ax6.config
 
     steps:
-      run: |
-        apk add --no-cache \
-          asciidoc bash bc binutils bzip2 cdrkit coreutils diffutils \
-          findutils flex g++ gawk gcc gettext git grep intltool libxslt \
-          linux-headers make ncurses-dev openssl-dev patch perl python2-dev \
-          python3-dev rsync tar unzip util-linux wget zlib-dev \
-          p7zip upx zstd curl ccache
-        addgroup -S scys --gid 1000 && adduser -S scys -G scys -u 1000
-        bash build.sh
+      - name: build
+        run: |
+          apk add --no-cache \
+            asciidoc bash bc binutils bzip2 cdrkit coreutils diffutils \
+            findutils flex g++ gawk gcc gettext git grep intltool libxslt \
+            linux-headers make ncurses-dev openssl-dev patch perl python2-dev \
+            python3-dev rsync tar unzip util-linux wget zlib-dev \
+            p7zip upx zstd curl ccache
+          addgroup -S scys --gid 1000 && adduser -S scys -G scys -u 1000
+          bash build.sh
 
   upload:
     needs: build
