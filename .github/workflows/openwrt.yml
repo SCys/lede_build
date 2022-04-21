@@ -12,6 +12,9 @@ env:
   REPO_BRANCH: master
   CONFIG_FILE: redmi_ax6.config
 
+
+
+
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -20,6 +23,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Get repo sources
+        run: |
+          [ ! -d lede ] && git clone --depth 1 $REPO_URL -b $REPO_BRANCH lede
+          [ -e $CONFIG_FILE ] && cp $CONFIG_FILE lede/.config
+
   build:
     needs: setup
 
@@ -27,10 +35,9 @@ jobs:
 
     container:
       image: alpine
-      options: --user scys
 
     steps:
-      - name: build
+      - name: Prepare system
         run: |
           apk add --no-cache \
             asciidoc bash bc binutils bzip2 cdrkit coreutils diffutils \
@@ -38,8 +45,35 @@ jobs:
             linux-headers make ncurses-dev openssl-dev patch perl python2-dev \
             python3-dev rsync tar unzip util-linux wget zlib-dev \
             p7zip upx zstd curl ccache
+
           addgroup -S scys --gid 1000 && adduser -S scys -G scys -u 1000
-          bash build.sh
+
+      - name: Build
+        run: |
+          cp setup.sh lede/
+          cd lede/
+
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a -f
+          ./setup.sh
+
+          make defconfig
+          make -j16 download -s
+
+          echo -e "$(nproc) thread compile"
+          make -j$(nproc) -s
+
+          mkdir -p ./artifact/firmware
+          mkdir -p ./artifact/package
+          
+          rm -rf $(find ./bin/targets/ -type d -name "packages")
+          rm -rf $(find ./bin/targets/ -type f -name "*.buildinfo")
+          cp -rf $(find ./bin/targets/ -type f) ./artifact/firmware/
+          cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
+
+          cp .config ./artifact/${CONFIG_FILE}
+
+          mv ./artifact ../
 
   upload:
     needs: build

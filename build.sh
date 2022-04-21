@@ -1,9 +1,13 @@
 #!/bin/bash         
 
 # REPO_URL=https://github.com/Boos4721/openwrt
-REPO_URL=https://github.com/coolsnowwolf/lede
+# REPO_URL=https://hub.fastgit.xyz/Boos4721/openwrt
+REPO_URL=https://hub.fastgit.xyz/coolsnowwolf/lede
 REPO_BRANCH=master
 CONFIG_FILE=redmi_ax6.config
+
+export HTTPS_PROXY=http://192.168.1.1:3002
+export HTTP_PROXY=http://192.168.1.1:3002
 
 [ ! -d lede ] && git clone $REPO_URL -b $REPO_BRANCH lede
 [ -e $CONFIG_FILE ] && cp $CONFIG_FILE lede/.config
