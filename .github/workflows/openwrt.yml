@@ -45,7 +45,8 @@ jobs:
           ./scripts/feeds install -a -f
           ./setup.sh
 
-          make defconfig
+          # make defconfig
+          # make oldconfig
           make -j16 download -s
 
           echo -e "$(nproc) thread compile"
