@@ -30,7 +30,6 @@ jobs:
 
     steps:
       run: |
-        sed -i 's/dl-cdn.alpinelinux.org/opentuna.cn/g' /etc/apk/repositories
         apk add --no-cache \
           asciidoc bash bc binutils bzip2 cdrkit coreutils diffutils \
           findutils flex g++ gawk gcc gettext git grep intltool libxslt \
@@ -42,7 +41,7 @@ jobs:
 
   upload:
     needs: build
-    
+
     runs-on: ubuntu-latest
 
     steps:
