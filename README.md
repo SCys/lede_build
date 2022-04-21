@@ -1,6 +1,6 @@
-个人使用的 redmi AX6 构建固件
+Redmi AX6 固件
 
-[![Build Redmi AX6 OpenWrt](https://github.com/SCys/OpenWrt-Build/actions/workflows/openwrt_redmi_ax6.yml/badge.svg)](https://github.com/SCys/OpenWrt-Build/actions/workflows/openwrt_redmi_ax6.yml)
+[![Build firmware and packages](https://github.com/SCys/lede_build/actions/workflows/openwrt.yml/badge.svg)](https://github.com/SCys/lede_build/actions/workflows/openwrt.yml)
 
 ## 硬件
 
@@ -18,6 +18,7 @@
 
 ## 感谢
 
+- [coolsnowwolf/lede](https://github.com/coolsnowwolf/lede)
 - [Boos4721/openwrt](https://github.com/Boos4721/openwrt)
 - [jingleijack/OpenWrt-AX6](https://github.com/jingleijack/OpenWrt-AX6)
 - [P3TERX/Actions-OpenWrt](https://github.com/P3TERX/Actions-OpenWrt)
