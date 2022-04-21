@@ -3,7 +3,7 @@ name: Build firmware and packages
 on:
   push:
   schedule:
-    - cron: 0 */18 * * *
+    - cron: 0 0 * * 1
   repository_dispatch:
 
 jobs:
@@ -30,14 +30,11 @@ jobs:
       - name: Delete workflow runs
         uses: GitRML/delete-workflow-runs@main
         with:
-          retain_days: 1
-          keep_minimum_runs: 3
+          retain_days: 15
 
       - name: Remove old Releases
-        uses: dev-drprasad/delete-older-releases@v0.1.0
-        if: !cancelled()
+        uses: dev-drprasad/delete-older-releases@v0.2.0
         with:
           keep_latest: 3
-          delete_tags: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
