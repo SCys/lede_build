@@ -1,3 +1,4 @@
+# docker run -itd --name lede_build -p 10022:22 -v $PWD/lede:/home/user/openwrt p3terx/openwrt-build-env^
 FROM alpine
 
 WORKDIR /data/
@@ -19,7 +20,5 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/opentuna.cn/g' /etc/apk/repositories &&\
 RUN addgroup -S scys --gid 1000 && adduser -S scys -G scys -u 1000
 USER scys
 
-ADD . /data/
-
-CMD [ "bash", "build.sh" ]
+ENTRYPOINT "bash"
 

@@ -1,0 +1,42 @@
+name: Build openwrt firmware and packages
+
+on:
+  schedule:
+    - cron: 0 */18 * * *
+  repository_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build and push
+        uses: docker/build-push-action@v2.10.0
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: false
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: redmi_ax6
+          path: ./artifact
+
+      - name: Delete workflow runs
+        uses: GitRML/delete-workflow-runs@main
+        with:
+          retain_days: 1
+          keep_minimum_runs: 3
+
+      - name: Remove old Releases
+        uses: dev-drprasad/delete-older-releases@v0.1.0
+        if: !cancelled()
+        with:
+          keep_latest: 3
+          delete_tags: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
