@@ -7,49 +7,43 @@ on:
   repository_dispatch:
 
 env:
-  TS: Asia/Shanghai
-  REPO_URL: https://github.com/Boos4721/openwrt
+  REPO_URL: https://hub.fastgit.xyz/coolsnowwolf/lede
   REPO_BRANCH: master
   CONFIG_FILE: redmi_ax6.config
 
-
-
-
 jobs:
-  setup:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Get repo sources
-        run: |
-          [ ! -d lede ] && git clone --depth 1 $REPO_URL -b $REPO_BRANCH lede
-          [ -e $CONFIG_FILE ] && cp $CONFIG_FILE lede/.config
-
-  build:
-    needs: setup
-
-    runs-on: ubuntu-latest
-
-    container:
-      image: alpine
-
-    steps:
       - name: Prepare system
         run: |
-          apk add --no-cache \
-            asciidoc bash bc binutils bzip2 cdrkit coreutils diffutils \
-            findutils flex g++ gawk gcc gettext git grep intltool libxslt \
-            linux-headers make ncurses-dev openssl-dev patch perl python2-dev \
-            python3-dev rsync tar unzip util-linux wget zlib-dev \
-            p7zip upx zstd curl ccache
+          apt update -y -qq
+          apt full-upgrade -y -qq
+          apt install -y -qq \
+            ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
+            bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib \
+            git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev \
+            libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz \
+            mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pip qemu-utils \
+            rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
 
           addgroup -S scys --gid 1000 && adduser -S scys -G scys -u 1000
 
+      - name: Get repo sources
+        run: |
+          sudo -u scys -i
+
+          [ ! -d lede ] && git clone --depth 1 $REPO_URL -b $REPO_BRANCH lede
+          [ -e $CONFIG_FILE ] && cp $CONFIG_FILE lede/.config
+
       - name: Build
         run: |
+          sudo -u scys -i
+
           cp setup.sh lede/
           cd lede/
 
@@ -71,16 +65,10 @@ jobs:
           cp -rf $(find ./bin/targets/ -type f) ./artifact/firmware/
           cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
 
-          cp .config ./artifact/${CONFIG_FILE}
+          cp .config ./artifact/$CONFIG_FILE
 
           mv ./artifact ../
 
-  upload:
-    needs: build
-
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
