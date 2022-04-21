@@ -15,7 +15,10 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/opentuna.cn/g' /etc/apk/repositories &&\
       findutils flex g++ gawk gcc gettext git grep intltool libxslt \
       linux-headers make ncurses-dev openssl-dev patch perl python2-dev \
       python3-dev rsync tar unzip util-linux wget zlib-dev \
-      p7zip upx zstd curl
+      p7zip upx zstd curl ccache
+
+RUN addgroup -S scys --gid 1000 && adduser -S scys -G scys -u 1000
+USER scys
 
 ENTRYPOINT "bash"
 
