@@ -14,12 +14,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Build and push
-        uses: docker/build-push-action@v2.10.0
-        with:
-          context: ./
-          file: ./Dockerfile
-          push: false
+      - name: Build
+        run: |
+          docker build -t builder .
+          docker run --rm -it builder
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
