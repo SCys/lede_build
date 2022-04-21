@@ -16,6 +16,7 @@ jobs:
 
   build:
     needs: setup
+
     container:
       image: alpine
       options: --user scys
@@ -24,6 +25,7 @@ jobs:
         - REPO_URL: https://github.com/Boos4721/openwrt
         - REPO_BRANCH: master
         - CONFIG_FILE: redmi_ax6.config
+        
     steps:
       run: |
         sed -i 's/dl-cdn.alpinelinux.org/opentuna.cn/g' /etc/apk/repositories
@@ -39,6 +41,8 @@ jobs:
   upload:
     needs: build
     runs-on: ubuntu-latest
+
+    steps:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
