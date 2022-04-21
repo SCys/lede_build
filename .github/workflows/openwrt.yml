@@ -1,6 +1,7 @@
-name: Build openwrt firmware and packages
+name: Build firmware and packages
 
 on:
+  push:
   schedule:
     - cron: 0 */18 * * *
   repository_dispatch:
