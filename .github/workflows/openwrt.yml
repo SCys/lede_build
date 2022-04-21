@@ -7,18 +7,38 @@ on:
   repository_dispatch:
 
 jobs:
-  build:
+  setup:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Build
-        run: |
-          docker build -t builder .
-          docker run --rm -it builder
+  build:
+    needs: setup
+    container:
+      image: alpine
+      options: --user scys
+      env:
+        - TS: Asia/Shanghai
+        - REPO_URL: https://github.com/Boos4721/openwrt
+        - REPO_BRANCH: master
+        - CONFIG_FILE: redmi_ax6.config
+    steps:
+      run: |
+        sed -i 's/dl-cdn.alpinelinux.org/opentuna.cn/g' /etc/apk/repositories
+        apk add --no-cache \
+          asciidoc bash bc binutils bzip2 cdrkit coreutils diffutils \
+          findutils flex g++ gawk gcc gettext git grep intltool libxslt \
+          linux-headers make ncurses-dev openssl-dev patch perl python2-dev \
+          python3-dev rsync tar unzip util-linux wget zlib-dev \
+          p7zip upx zstd curl ccache
+        addgroup -S scys --gid 1000 && adduser -S scys -G scys -u 1000
+        bash build.sh
 
+  upload:
+    needs: build
+    runs-on: ubuntu-latest
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
