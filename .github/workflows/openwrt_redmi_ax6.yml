@@ -57,7 +57,7 @@ jobs:
 
           cd openwrt
           ./scripts/feeds update -a
-          ./scripts/feeds install -a
+          ./scripts/feeds install -a -f
 
           ./setup.sh
 
@@ -71,8 +71,7 @@ jobs:
       - name: Compile the firmware
         run: |
           cd openwrt
-          make defconfig
-          make -j4 download -s V=s 2>&1 >/dev/null
+          make -j8 download -s V=s 2>&1 >/dev/null
           echo -e "$(nproc) thread compile"
           make -j$(nproc) -s V=s
           echo "::set-output name=status::success"
