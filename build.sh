@@ -23,7 +23,7 @@ make defconfig
 make -j16 download -s
 
 echo -e "$(nproc) thread compile"
-make -j$(nproc) -s
+make -j$(nproc) V=s
 
 mkdir -p ./artifact/firmware
 mkdir -p ./artifact/package
